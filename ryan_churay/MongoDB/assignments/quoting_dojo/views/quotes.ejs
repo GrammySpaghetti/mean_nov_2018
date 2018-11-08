@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Quotes</title>
+  </head>
+  <body>
+    <div class="col-lg-6 d-inline-block">
+      <h1>Let's see all the quotes</h1>
+      <% for (var quote of quotes) { %>
+        <p>
+          "<%= quote.quote %>"
+        </p>
+        <h3>Name: <%= quote.name %><%= quote.updatedAt %></h3>
+        <hr>
+      <% } %>
+    </div>
+  </body>
+</html>
