@@ -23,7 +23,7 @@ module.exports = {
   },
 
   id_task: function(req, res){
-    Task.findOne({title: req.params.task}, function(err, task){
+    Task.findById(req.params.task, function(err, task){
       console.log(task);
       res.json({err: err, data: task});
     });
