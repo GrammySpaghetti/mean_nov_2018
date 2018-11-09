@@ -1,0 +1,20 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <div class='container'>
+    <h2>{{ all_tasks_title }}</h2>
+    <div *ngFor='let t of all_tasks' class='border border-dark'>
+      <p>Title: {{ t.title }}</p>
+      <p>Description: {{ t.description }}</p>
+    </div>
+    <h2>{{ task_title }}</h2>
+    <div class='border border-dark'>
+      <p>Title: {{ task.title }}</p>
+      <p>Description: {{ task.description }}</p>
+    </div>
+  </div>
+
+
+<router-outlet></router-outlet>

@@ -1,0 +1,41 @@
+SETTING UP A NEW ANGULAR PROJECT INSIDE OF AND EXPRESS PROJECT
+
+To run the project in the terminal make sure mongod is running, ng build --watch, and the nodemon server.js is running
+
+npm install -g @angular/cli (installs angular globally on your machine)
+
+Navigate to your express project 
+ng new public (creates a new angular app)
+
+Navigate to your angular project root
+ng build --watch
+
+In the express server.js file make sure the static is pointed to the angular app
+app.use(express.static( __dirname + '/public/dist/public' ));
+
+Navigate to the angular app and set up service in the terminal with:
+ng g s http
+
+Register the service by making the connections among the app components
+.../app.app.module.ts
+import { HttpService } from './http.service';
+in the @NgModule add HttpService to the providers array
+
+HttpClient connections
+.../app/app.module.ts
+import { HttpClientModule } from '@angular/common/http';
+in the @NgModule add HttpClientModule to the imports array
+
+Dependency Injection
+.../app/http.service.ts
+import { HttpClient } from '@angular/common/http';
+export class HttpService{
+    constructor(private _http: HttpClient){}
+}
+
+.../app/app.component.ts
+import { HttpService } from './http.service';
+export class AppComponent{
+    title = 'app'
+    constructor(private _httpService: HttpService){}
+}
