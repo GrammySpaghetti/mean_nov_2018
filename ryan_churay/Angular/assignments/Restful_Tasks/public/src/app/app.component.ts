@@ -15,8 +15,8 @@ export class AppComponent implements OnInit {
   constructor(private _httpService: HttpService){}
 
   ngOnInit(){
-    this.getTasks();
-    this.getID();
+    // this.getTasks();
+    // this.getID();
   }
 
   getTasks(){
@@ -27,15 +27,24 @@ export class AppComponent implements OnInit {
       console.log(this.all_tasks);
     });
   }
-
-  getID(){
-    let obs2 = this._httpService.taskID();
-    obs2.subscribe(data => {
-      console.log('got by id', data)
+  getDescription(title){
+    console.log(title);
+    let obs = this._httpService.taskID(title);
+    obs.subscribe(data => {
+      // console.log('got tasks!', data)
       this.task = data['data'];
       console.log(this.task);
     });
   }
+
+  // getID(){
+  //   let obs2 = this._httpService.taskID();
+  //   obs2.subscribe(data => {
+  //     console.log('got by id', data)
+  //     this.task = data['data'];
+  //     console.log(this.task);
+  //   });
+  // }
 
   
 

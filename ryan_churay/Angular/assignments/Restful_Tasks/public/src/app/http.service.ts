@@ -13,7 +13,8 @@ export class HttpService {
     return this._http.get('/tasks')
   }
 
-  taskID(){
-    return this._http.get('/tasks/Homework')
+  taskID(title){
+    return this._http.get(`/tasks/${title}`)
   }
+
 }

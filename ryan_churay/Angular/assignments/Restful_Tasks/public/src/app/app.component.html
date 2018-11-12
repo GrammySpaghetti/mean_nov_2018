@@ -4,16 +4,24 @@
     Welcome to {{ title }}!
   </h1>
   <div class='container'>
-    <h2>{{ all_tasks_title }}</h2>
-    <div *ngFor='let t of all_tasks' class='border border-dark'>
-      <p>Title: {{ t.title }}</p>
-      <p>Description: {{ t.description }}</p>
+    <h2 class=''>{{ all_tasks_title }}</h2>
+    <button (click)="getTasks()" class='badge badge-primary align-middle'>All Tasks</button>
+    <div class="">
+      <div *ngFor='let t of all_tasks' class='border border-dark'>
+        <p class='d-inline-block'>Title: {{ t.title }}</p>
+        <button (click)="getDescription(t.title)" class='badge badge-success align-middle d-inline-block ml-2'>More Info!</button>
+        <p *ngIf='task._id == t._id'>Description: {{ task.description }}</p>
+      </div>
+
     </div>
+
     <h2>{{ task_title }}</h2>
-    <div class='border border-dark'>
+    <p>Title: {{ task.title }}</p>
+    <p>Description: {{ task.description }}</p>
+    <!-- <div class='border border-dark'>
       <p>Title: {{ task.title }}</p>
       <p>Description: {{ task.description }}</p>
-    </div>
+    </div> -->
   </div>
 
 
