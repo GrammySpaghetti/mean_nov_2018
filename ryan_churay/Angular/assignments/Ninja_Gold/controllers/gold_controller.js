@@ -5,7 +5,7 @@ module.exports = {
   index: function(req, res){
     var add = new Gold({});
     console.log('hello')
-    add.save(function (err, gold){
+      add.save(function (err, gold){
       console.log(gold);
       console.log(err);
       res.json({err: err, data: gold});
