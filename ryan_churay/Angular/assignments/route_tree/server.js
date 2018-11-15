@@ -12,7 +12,9 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.set(path.join('views', __dirname, 'views'));
 app.set('view engine', 'ejs');
 require('./config/routes.js')(app);
-
+app.all("*", (req,res,next) => {
+  res.sendFile(path.resolve("./public/dist/public/index.html"))
+});
 app.listen(port, function() {
     console.log(`listening on port ${port}`);
 })

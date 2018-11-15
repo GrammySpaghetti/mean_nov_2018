@@ -79,6 +79,122 @@ export class TaskComponent implements OnInit {
 <h6>{{taskToShow.title}}</h6>
 <p>{{taskToShow.description}}</p>
 
+SETTING UP APP APP ROUTING
+.../app/app.component.html - redirecting via links
+<button [routerLink]="['/alpha']">Load Alpha</button>
+<button [routerLink]="['/beta']">Load Beta</button>
+<router-outlet></router-outlet>
+
+.../app/app-routing.module.ts
+import { AlphaComponent } from './alpha/alpha.component';
+import { BetaComponent } from './beta/beta.component';
+import { GammaComponent } from './gamma/gamma.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+const routes: Routes = [
+  { path: 'alpha',component: AlphaComponent },
+  { path: 'beta',component: BetaComponent },
+  // use a colon and parameter name to include a parameter in the url
+  { path: 'gamma/:id', component: GammaComponent },
+  // redirect to /alpha if there is nothing in the url
+  { path: '', pathMatch: 'full', redirectTo: '/alpha' },
+  // the ** will catch anything that did not match any of the above routes
+  { path: '**', component: PageNotFoundComponent }
+];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+.../app/app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AlphaComponent } from './alpha/alpha.component';
+import { BetaComponent } from './beta/beta.component';
+import { GammaComponent } from './gamma/gamma.component';
+@NgModule({
+  declarations: [AppComponent, AlphaComponent, BetaComponent, GammaComponent],
+  imports: [BrowserModule, AppRoutingModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+.../server.js
+...
+// this route will be triggered if any of the routes above did not match
+app.all("*", (req,res,next) => {
+  res.sendFile(path.resolve("./public/dist/public/index.html"))
+});
+...
+
+.../gamma/gamma.component.ts
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+@Component({
+  selector: 'app-gamma',
+  templateUrl: './gamma.component.html',
+  styleUrls: ['./gamma.component.css']
+})
+export class GammaComponent implements OnInit {
+  constructor(
+    private _route: ActivatedRoute,
+    private _router: Router
+  ) {}
+  ngOnInit() {
+    this._route.params.subscribe((params: Params) => {
+        console.log(params['id'])
+    });
+  }
+  goHome() {
+    this._router.navigate(['/home']);
+  }
+
+}
+
+
+SETTING UP NESTED ROUTES
+.../src/app/app-routing.module.ts
+const routes: Routes = [
+    { path: 'products', component: ProductComponent, children: [
+        { path: 'details/:id', component: ProductDetailComponent },
+        { path: 'brand/:brand', component: BrandComponent },
+        { path: 'category/:cat', component: CategoryComponent }]
+    },
+    { path: 'reviews', component: ReviewComponent, children: [
+        { path: 'details/:id', component: ReviewDetailComponent },
+        { path: 'author/:id', component: AuthorComponent },
+        { path: 'all/:id', component: AllreviewsComponent }]
+    }
+]
+
+.../src/app/product/product.component.html
+<!-- notice the lack of a slash in front of 'details' -->
+<!-- without the slash, details/5 will be appended to our existing route, which is /products -->
+<a [routerLink] = "['details', 5]"> Go to /products/details/5 </a>
+
+.../src/app/review/review.component.html
+<!-- notice the slash in front of 'products' -->
+<!-- without the slash, products/details/5 would be appended to our existing route, resulting in
+reviews/products/details/5, which we would not be able to handle with our routes written as they are now -->
+<a [routerLink] = "['/products', 'details', 5]"> Go to /products/details/5 </a>
+
+ACCESSING PARENT PARAMETERS
+.../src/app/sale/sale.component.ts
+export class SaleComponent implements OnInit {
+     constructor(private _route: ActivatedRoute){}
+     ngOnInit(){
+         // note the use of .parent
+         this._route.parent.params.subscribe(params => console.log(`The parent params: ${params}`))
+     }
+ }
+
+
+
 <p *ngIf="loggedIn">You are logged in!</p>
 <p *ngFor="let snack of snacks">{{snack}}</p>
 <p *ngIf="snacks.length < 3">You need more snacks.</p>
