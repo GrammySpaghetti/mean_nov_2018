@@ -1,0 +1,22 @@
+<div class="bg-info p-1">
+  <div class="bg-danger" *ngFor='let e of err'>
+    <p class='bg-danger' *ngIf='e.message'>{{e.message.message}}</p>
+  </div>
+
+  <div class="bg-white border border-dark m-2">
+    <div class="d-inline-bloc align-top">
+      <form class="form-group m-2" (submit)="newProduct(product)">
+        <!-- <p> {{ product | json }} </p> -->
+        <label for="name">Product Name:</label>
+        <input class='form-control' type="text" name="product.name" [(ngModel)]='product.name'>
+        <label for="price">Price:</label>
+        <input class='form-control' type="text" name="product.price"  [(ngModel)]='product.price'>
+        <label for="img">Image URL:</label>
+        <input class='form-control' type="text" name="product.img" [(ngModel)]='product.img'>
+        <button class='btn btn-warning m-1' type="submit" name="button" value='submit'>Create</button>
+      </form>
+
+
+    </div>
+  </div>
+</div>

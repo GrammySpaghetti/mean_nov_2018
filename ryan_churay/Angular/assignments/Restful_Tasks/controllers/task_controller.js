@@ -30,7 +30,7 @@ module.exports = {
   },
 
   update_task: function(req, res){
-    Task.findOneAndUpdate({title: req.params.task}, {$set: {title: req.body.title, description: req.body.description}}, function(err, task){
+    Task.findOneAndUpdate({title: req.params.task}, {$set: req.body}, {new: true}, function(err, task){
       console.log(req.body);
       res.json({err: err, data: task});
     });

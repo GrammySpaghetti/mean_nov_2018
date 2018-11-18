@@ -1,0 +1,19 @@
+<div class="bg-info p-1">
+  <div class="bg-white border border-dark m-2">
+    <img src="{{product.img}}" class='d-inline-block align-top m-1' style='width: 150px;'>
+    <div class="d-inline-bloc align-top">
+      <form class="form-group m-2" (submit)="updateProduct(product)">
+        <label for="name">Product Name:</label>
+        <input class='form-control' type="text" name="product.name" value="{{product.name}}" [(ngModel)]='product.name'>
+        <label for="price">Price:</label>
+        <input class='form-control' type="text" name="product.price" value="{{product.price}}" [(ngModel)]='product.price'>
+        <label for="img">Image URL:</label>
+        <input class='form-control' type="text" name="product.img" value="{{product.img}}" [(ngModel)]='product.img'>
+        <button class='btn btn-warning m-1' type="submit" name="button" value='submit'>Update</button>
+        <button class='btn btn-danger m-1' type="button" name="button" (click)='deleteProduct(product._id)'>Delete</button>
+      </form>
+
+
+    </div>
+  </div>
+</div>

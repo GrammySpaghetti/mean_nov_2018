@@ -23,7 +23,7 @@ const routes: Routes = [
     {path: 'all/:id', component: AllreviewsComponent},
   ]},
   { path: '', pathMatch: 'full', redirectTo: '/' },
-  { path: '**', redirectTo: '/products' },
+  { path: '**', redirectTo: 'products' },
 ];
 
 @NgModule({

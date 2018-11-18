@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { InfoComponent } from './info/info.component';
 import { ProductsComponent } from './products/products.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { DetailsComponent } from './products/details/details.component';
@@ -21,7 +20,6 @@ import { AllreviewsComponent } from './reviews/allreviews/allreviews.component';
 @NgModule({
   declarations: [
     AppComponent,
-    // InfoComponent,
     ProductsComponent,
     ReviewsComponent,
     DetailsComponent,
